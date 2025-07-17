@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "default-server": {
+      "command": "go",
+      "args": ["run", "cmd/main.go"]
+    }
+  }
+}
