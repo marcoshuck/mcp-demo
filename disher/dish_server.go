@@ -2,6 +2,7 @@ package disher
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -106,7 +107,14 @@ func ListDishesHandler(ds DishServer) mcp.ToolHandlerFor[ListDishesRequest, List
 		if err != nil {
 			return nil, err
 		}
+		b, err := json.Marshal(res)
+		if err != nil {
+			return nil, err
+		}
 		return &mcp.CallToolResultFor[ListDishesResponse]{
+			Content: []mcp.Content{
+				&mcp.TextContent{Text: string(b)},
+			},
 			StructuredContent: *res,
 		}, nil
 	}
@@ -118,7 +126,14 @@ func ServeDishHandler(ds DishServer) mcp.ToolHandlerFor[ServeDishRequest, ServeD
 		if err != nil {
 			return nil, err
 		}
+		b, err := json.Marshal(res)
+		if err != nil {
+			return nil, err
+		}
 		return &mcp.CallToolResultFor[ServeDishResponse]{
+			Content: []mcp.Content{
+				&mcp.TextContent{Text: string(b)},
+			},
 			StructuredContent: *res,
 		}, nil
 	}
