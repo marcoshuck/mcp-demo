@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"math/rand"
 )
 
 type Dish struct {
@@ -17,7 +18,9 @@ type ServeDishRequest struct {
 }
 
 type ServeDishResponse struct {
-	Dish Dish
+	Dish   Dish
+	Waiter string
+	Price  float64
 }
 
 type ListDishesRequest struct {
@@ -43,11 +46,14 @@ func (svc *dishServer) ServeDish(ctx context.Context, req *ServeDishRequest) (*S
 	if !ok {
 		return nil, errors.New("not found")
 	}
+	price := rand.Float64() * 100
 	return &ServeDishResponse{
 		Dish: Dish{
 			Name:        req.Name,
 			DisplayName: displayName,
 		},
+		Waiter: "Marcos Huck",
+		Price:  price,
 	}, nil
 }
 
